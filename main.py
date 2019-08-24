@@ -1,5 +1,6 @@
 from board import Board
 from players import Player_AI_Random, Player_Human
+from helpers import congratulate
 
 board = Board()
 
@@ -17,7 +18,7 @@ for _ in range(42):
     if board.winning_position():
         print(board)
         if player_to_play.player_type == "Human":
-            print("Congratulation %s, you won!" % (player_to_play.name))
+            congratulate(player_to_play.name)
         else:
             print("Pffft! Looser!")
         break

@@ -71,18 +71,21 @@ class Board():
 
     def __repr__(self):
         # TO IMPROVE
-        return "\n".join([" ".join(format_3chars(v) for v in self.board[5 - row]) for row in range(6)])
+        header = " 1   2   3   4   5   6   7" +"\n"
+        separator = "="*27 + "\n"
+        board = "\n".join([" ".join(format_3chars(v) for v in self.board[5 - row]) for row in range(6)])
+        return header + separator + board
 
 
 def format_3chars(v):
     if v < 0:
-        return "-1 "
+        return " X "
     elif v == 0:
-        return " 0 "
-    elif v == 1:
-        return " 1 "
-    else:
         return " - "
+    elif v == 1:
+        return " 0 "
+    else:
+        return "   "
 
 
 def contains_4_consecutive_coins(values):
