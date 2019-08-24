@@ -7,3 +7,7 @@ def congratulate(player_name):
 
 def clear_screen():
     subprocess.check_call(["clear"])
+
+
+def flatten(matrix):
+    return [item for sublist in matrix for item in sublist]
