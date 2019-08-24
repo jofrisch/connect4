@@ -1,5 +1,5 @@
 from random import choice
-
+from helpers import clear_screen
 
 class Player_AI_Random():
 
@@ -21,6 +21,7 @@ class Player_Human():
     def __init__(self, coin_value):
         self.coin_value = coin_value
         self.name = input("What is your name?\n")
+        clear_screen()
         self.player_type = "Human"
 
     def make_a_move(self, board):
@@ -35,3 +36,4 @@ class Player_Human():
             print("Please enter a column number (0 to 6), where there is an available spot.")
             call = input("> ")
             valid_call = call in list("1234567") and board.insert_coin(int(call) - 1, self.coin_value)
+        clear_screen()

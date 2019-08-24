@@ -1,11 +1,12 @@
 from board import Board
 from players import Player_AI_Random, Player_Human
-from helpers import congratulate
+from helpers import congratulate, clear_screen
 
+clear_screen()
 board = Board()
 
-player1 = Player_Human(1)
-player2 = Player_AI_Random(-1)
+player1 = Player_AI_Random(1)
+player2 = Player_Human(-1)
 
 player_to_play = player1
 
@@ -24,3 +25,4 @@ for _ in range(42):
         break
     else:
         player_to_play = player2 if player_to_play == player1 else player1
+
