@@ -38,14 +38,19 @@ class Board():
                 diagonal.append(self.board[i][diag_number - i])
         return diagonal
 
+    def get_opened_columns(self):
+        """ Returns  a list of column ids that are opened.
+        A column is opened if at least the last row contains a 0."""
+        return [col for col in range(7) if self.board[5][col] == 0]
+
     def insert_coin(self, column, value):
-        """ Update the board by inserting a coin of a given value in a given column.
-        Return True if the coin was added to the board.
-        Return False if the coin couldn't be added to the board"""
+        """ Updates the board by inserting a coin of a given value in a given column.
+        Returns True if the coin was added to the board.
+        Returns False if the coin couldn't be added to the board"""
         column_values = self.get_column(column)
-        if 0 in column_values:
-            free_row = column_values.index(0)
-            self._modify_board(free_row, column, value)
+        if 0 in column_values:  # check if column is opened
+            free_row = column_values.index(0)  # identify the first row that is empty
+            self._modify_board(free_row, column, value)  # update the value on that row
             return True
         else:
             return False
@@ -104,12 +109,12 @@ if __name__ == "__main__":
 
         # Invite the next player to play; if the move is valid, update the board
         call = input("Player %i to play... " % (player + 1))
-        valid_call = call in "0123456" and len(call) == 1 and board.insert_coin(int(call), coin)
+        valid_call = call in list("0123456") and board.insert_coin(int(call), coin)
 
         while not valid_call:
             print("Please enter a column number (from 0 to 6), where there is an available spot.")
             call = input("Player %i to play... " % (player + 1))
-            valid_call = call in "0123456" and len(call) == 1 and board.insert_coin(int(call), coin)
+            valid_call = call in list("0123456") and board.insert_coin(int(call), coin)
 
         # Check if the game is won
         if board.winning_position():
