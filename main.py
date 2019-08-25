@@ -1,11 +1,11 @@
 from board import Board
-from players import Player_AI_Random, Player_Human
+from players import Player_AI_Random, Player_Human, Player_AI_NN
 from helpers import congratulate
 
 board = Board()
 
 player1 = Player_Human(1)
-player2 = Player_AI_Random(-1)
+player2 = Player_AI_NN(-1)
 
 player_to_play = player1
 
