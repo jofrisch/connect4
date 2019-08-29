@@ -15,7 +15,7 @@ for _ in range(42):
     player_to_play.make_a_move(board)
 
     # Check if the game is won
-    if board.winning_position():
+    if board.is_winning_position():
         print(board)
         if player_to_play.player_type == "Human":
             congratulate(player_to_play.name)

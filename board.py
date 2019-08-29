@@ -55,7 +55,7 @@ class Board():
         else:
             return False
 
-    def winning_position(self):
+    def is_winning_position(self):
         for column in range(7):
             if contains_4_consecutive_coins(self.get_column(column)):
                 return True
@@ -69,10 +69,24 @@ class Board():
         # If we couldn't find a winning position
         return False
 
+    def undo_move(self, column, row=None):
+        """Replace last coin of the given column by an empty cell.
+        You can provide the row to gain speed.
+        """
+        if row:
+            self.board[row][column] = 0
+        else:
+            column_values = self.get_column(column)
+            if column_values[-1] == 0:
+                row = column_values.index(0) - 1
+            else:
+                row = 6
+            self.board[row][column] = 0
+
     def __repr__(self):
         # TO IMPROVE
-        header = " 1   2   3   4   5   6   7" +"\n"
-        separator = "="*27 + "\n"
+        header = " 1   2   3   4   5   6   7" + "\n"
+        separator = "=" * 27 + "\n"
         board = "\n".join([" ".join(format_3chars(v) for v in self.board[5 - row]) for row in range(6)])
         return header + separator + board
 
