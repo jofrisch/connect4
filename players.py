@@ -2,6 +2,7 @@ from random import choice
 import copy
 from model.cnn_definition import First_CNN
 from model.make_prediction import predict_chance_to_win
+from helpers import minimax
 
 
 class Player_AI_Random():
@@ -62,3 +63,17 @@ class Player_Human():
             print("Please enter a column number (0 to 6), where there is an available spot.")
             call = input("> ")
             valid_call = call in list("1234567") and board.insert_coin(int(call) - 1, self.coin_value)
+
+class Player_AI_MiniMax():
+
+    def __init__(self, value):
+        self.player_value = value
+        self.name = "AI Minimax player"
+        self.player_type = "AI"
+
+    def make_a_move(self, board):
+        """ Chooses a column to insert a coin."""
+        tmp_board = copy.deepcopy(board)
+        best_col, score = minimax(tmp_board, 5, self.player_value)
+        print("AI Minimax player plays in column: %i" % (best_col + 1))
+        return board.insert_coin(best_col, self.player_value)

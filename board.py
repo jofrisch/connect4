@@ -57,17 +57,20 @@ class Board():
 
     def is_winning_position(self):
         for column in range(7):
-            if contains_4_consecutive_coins(self.get_column(column)):
-                return True
+            winner = contains_4_consecutive_coins(self.get_column(column))
+            if winner:
+                return True, winner
         for row in range(6):
-            if contains_4_consecutive_coins(self.get_row(row)):
-                return True
+            winner = contains_4_consecutive_coins(self.get_row(row))
+            if winner:
+                return True, winner
         for direction in ['right', 'left']:
             for diagonal in range(7):
-                if contains_4_consecutive_coins(self.get_diagonal(diagonal, direction)):
-                    return True
+                winner = contains_4_consecutive_coins(self.get_diagonal(diagonal, direction))
+                if winner:
+                    return True, winner
         # If we couldn't find a winning position
-        return False
+        return False, 0
 
     def undo_move(self, column, row=None):
         """Replace last coin of the given column by an empty cell.
@@ -80,7 +83,7 @@ class Board():
             if column_values[-1] == 0:
                 row = column_values.index(0) - 1
             else:
-                row = 6
+                row = 5
             self.board[row][column] = 0
 
     def __repr__(self):
@@ -103,14 +106,20 @@ def format_3chars(v):
 
 
 def contains_4_consecutive_coins(values):
+    """ Return 2 values:
+    1. True/False whether there are 4 consecutive coins
+    2. 1/-1 if True: the value of the 4 consecutive coins, else 0
+    """
     size = len(values)
     if size < 4:
         return False
     else:
         for i in range(size - 3):
-            if sum(values[i: i + 4]) == 4 or sum(values[i: i + 4]) == -4:
-                return True
-        return False
+            if sum(values[i: i + 4]) == 4:
+                return 1
+            elif sum(values[i: i + 4]) == -4:
+                return -1
+        return 0
 
 
 if __name__ == "__main__":
