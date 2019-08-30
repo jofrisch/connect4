@@ -42,7 +42,6 @@ class Board():
             end = min(6, diag_number + 3)
             for i in range(start, end):
                 j = (2 + diag_number - i) % 7
-                print(i, j)
                 diagonal.append(self.board[i][j])
         return diagonal
 

@@ -1,10 +1,10 @@
 import subprocess
 import numpy as np
 from random import random
-
+import cowsay
 
 def congratulate(player_name):
-    subprocess.check_call(['cowsay', "CONGRATULATIONS %s !!!" % (player_name)])
+    cowsay.cow("CONGRATULATIONS %s !!!" % (player_name))
 
 
 def clear_screen():
