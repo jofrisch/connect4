@@ -1,4 +1,4 @@
-
+from helpers import flatten
 
 class Board():
 
@@ -102,7 +102,7 @@ class Board():
 
 
 def format_3chars(v):
-    if v < 0:
+    if v == -1:
         return " X "
     elif v == 0:
         return " - "
@@ -113,13 +113,12 @@ def format_3chars(v):
 
 
 def contains_4_consecutive_coins(values):
-    """ Return 2 values:
-    1. True/False whether there are 4 consecutive coins
-    2. 1/-1 if True: the value of the 4 consecutive coins, else 0
+    """
+    Return 0 if there are no 4 consecutive rows, return the coin value of the 4 otherwise.
     """
     size = len(values)
     if size < 4:
-        return False
+        return 0
     else:
         for i in range(size - 3):
             if sum(values[i: i + 4]) == 4:
@@ -128,35 +127,6 @@ def contains_4_consecutive_coins(values):
                 return -1
         return 0
 
-
-if __name__ == "__main__":
-
-    board = Board()
-    print(board)
-
-    player = 0
-
-    for _ in range(42):
-
-        coin = (-1)**player  # Coin = 1 for player1, -1 for player 2
-
-        # Invite the next player to play; if the move is valid, update the board
-        call = input("Player %i to play... " % (player + 1))
-        valid_call = call in list("0123456") and board.insert_coin(int(call), coin)
-
-        while not valid_call:
-            print("Please enter a column number (from 0 to 6), where there is an available spot.")
-            call = input("Player %i to play... " % (player + 1))
-            valid_call = call in list("0123456") and board.insert_coin(int(call), coin)
-
-        # Check if the game is won
-        if board.winning_position():
-            print(board)
-            print("Congratulation player %i, you won!" % (player + 1))
-            break
-        else:
-            player = (player + 1) % 2
-            print(board)
 
 
 

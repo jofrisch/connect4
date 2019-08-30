@@ -67,3 +67,20 @@ def evaluate(board, coin, depth):
         return - (1 + random() * 0.01 + depth * 0.1)
     else:
         return random() * 0.3
+
+
+def check_save_board(saved_boards, board, move, seed, save_reverse=True):
+    if move % 6 == seed:
+        saved_boards.append(board)
+        if save_reverse:
+            reversed_board = [row[::-1] for row in board]
+            saved_boards.append(reversed_board)
+
+
+def store_saved_boards(saved_boards, winner):
+    with open("data/games.txt", "a") as games_file:
+        for board in saved_boards:
+            board_str = ".".join([str(cell) for cell in flatten(board)])
+            winner_str = "win." + str(winner)
+            line = board_str + "." + winner_str + '\n'
+            games_file.write(line)

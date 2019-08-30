@@ -1,7 +1,7 @@
 from random import choice
 import copy
-from model.cnn_definition import First_CNN
-from model.make_prediction import predict_chance_to_win
+#from model.cnn_definition import First_CNN
+#from model.make_prediction import predict_chance_to_win
 from helpers import minimax
 
 
@@ -60,7 +60,7 @@ class Player_Human():
 
         while not valid_call:
             print("Impossible move!")
-            print("Please enter a column number (0 to 6), where there is an available spot.")
+            print("Please enter a column number (1 to 7), where there is an available spot.")
             call = input("> ")
             valid_call = call in list("1234567") and board.insert_coin(int(call) - 1, self.coin_value)
 
