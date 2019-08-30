@@ -26,16 +26,24 @@ class Board():
         return self.board[row_number]
 
     def get_diagonal(self, diag_number, direction='right'):
-        """ Returns all the values on a specific diagonal, defined by the diag_number (=0,...,6) and the direction (=right or left).
-        The Nth diagonal is the diagonal that starts on the first row and Nth column, and goes to the left or right.
+        """ Returns all the values on a specific diagonal.
+        A diagonal is defined by the diag_number (=0,...,6) and the direction (=right or left).
+        The diag_number refers to the diagonal that passes through the row_id = 2 and col_id = diag_number
         """
         diagonal = list()
         if direction == 'right':
-            for i in range(min(6 - diag_number + 1, 6)):
-                diagonal.append(self.board[i][diag_number + i])
+            start = max(0, 2 - diag_number)
+            end = min(6, 9 - diag_number)
+            for i in range(start, end):
+                j = (i - 2 + diag_number) % 7
+                diagonal.append(self.board[i][j])
         else:
-            for i in range(min(diag_number + 1, 6)):
-                diagonal.append(self.board[i][diag_number - i])
+            start = max(0, diag_number - 4)
+            end = min(6, diag_number + 3)
+            for i in range(start, end):
+                j = (2 + diag_number - i) % 7
+                print(i, j)
+                diagonal.append(self.board[i][j])
         return diagonal
 
     def get_opened_columns(self):

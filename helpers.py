@@ -40,7 +40,7 @@ def minimax(board, depth, coin, player=1):
 
     is_a_win, _ = board.is_winning_position()
     if depth == 0 or is_a_win:
-        score = evaluate(board, coin)
+        score = evaluate(board, coin, depth)
         return [-1, score]
 
     for column in board.get_opened_columns():
@@ -59,11 +59,11 @@ def minimax(board, depth, coin, player=1):
     return best
 
 
-def evaluate(board, coin):
+def evaluate(board, coin, depth):
     is_a_win, winner = board.is_winning_position()
     if is_a_win and winner == coin:
-        return 1 + random() * 0.1
+        return 1 + random() * 0.01 + depth * 0.1
     elif is_a_win and winner != coin:
-        return -1 + random() * 0.1
+        return - (1 + random() * 0.01 + depth * 0.1)
     else:
         return random() * 0.3
